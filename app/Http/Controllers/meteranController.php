@@ -17,10 +17,10 @@ class meteranController extends Controller implements HasMiddleware
     public static function middleware(): array
     {
         return [
-            // new Middleware('permission:meteran view', only: ['index', 'show']),
-            // new Middleware('permission:meteran create', only: ['create', 'store']),
-            // new Middleware('permission:meteran edit', only: ['edit', 'update']),
-            // new Middleware('permission:meteran delete', only: ['destroy']),
+            new Middleware('permission:meteran view', only: ['index', 'show']),
+            new Middleware('permission:meteran create', only: ['create', 'store']),
+            new Middleware('permission:meteran edit', only: ['edit', 'update']),
+            new Middleware('permission:meteran delete', only: ['destroy']),
         ];
     }
 
@@ -93,7 +93,11 @@ class meteranController extends Controller implements HasMiddleware
 
     public function edit(meteran $meteran): View
     {
-        return view('meteran.edit', compact('meteran'));
+        $meteran = new meteran();
+        $pelanggan = Pelanggan::all();
+        $layanan = Layanan::all();
+
+        return view('meteran.edit', compact('meteran', 'pelanggan', 'layanan'));
     }
 
     public function update(Request $request, meteran $meteran): RedirectResponse
@@ -103,9 +107,9 @@ class meteranController extends Controller implements HasMiddleware
             'id_layanan' => 'required|integer',
             'lokasi_pemasangan' => 'required|string',
             'tanggal_pemasangan' => 'required|date',
-            'status' => 'required|boolean',
             'chip_kartu' => 'required|string|max:255',
         ]);
+        $validatedData['status'] = 1;
 
         try {
             $meteran->update($validatedData);
