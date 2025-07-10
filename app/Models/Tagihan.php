@@ -29,38 +29,38 @@ use Illuminate\Database\Eloquent\Model;
  */
 class Tagihan extends Model
 {
-	protected $table = 'tagihan';
-	public $timestamps = false;
+    protected $table = 'tagihan';
+    public $timestamps = false;
 
-	protected $casts = [
-		'id_pelanggan' => 'int',
-		'id_meteran' => 'int',
-		'tahun' => 'int',
-		'nomor_meteran' => 'int',
-		'nominal' => 'float',
-		'waktu_awal' => 'datetime',
-		'waktu_akhir' => 'datetime',
-		'status' => 'bool'
-	];
+    protected $casts = [
+        'id_pelanggan' => 'int',
+        'id_meteran' => 'int',
+        'tahun' => 'int',
+        'nomor_meteran' => 'int',
+        'nominal' => 'float',
+        'waktu_awal' => 'datetime',
+        'waktu_akhir' => 'datetime',
+        'status' => 'bool'
+    ];
 
-	protected $fillable = [
-		'id_pelanggan',
-		'id_meteran',
-		'tahun',
-		'nomor_meteran',
-		'nominal',
-		'waktu_awal',
-		'waktu_akhir',
-		'status'
-	];
+    protected $fillable = [
+        'id_pelanggan',
+        'id_meteran',
+        'tahun',
+        'nomor_meteran',
+        'nominal',
+        'awal',
+        'akhir',
+        'status'
+    ];
 
-	public function meteran()
-	{
-		return $this->belongsTo(Meteran::class, 'id_meteran');
-	}
+    public function meteran()
+    {
+        return $this->belongsTo(Meteran::class, 'id_meteran');
+    }
 
-	public function pelanggan()
-	{
-		return $this->belongsTo(Pelanggan::class, 'id_pelanggan');
-	}
+    public function pelanggan()
+    {
+        return $this->belongsTo(Pelanggan::class, 'id_pelanggan');
+    }
 }

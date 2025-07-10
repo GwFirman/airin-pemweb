@@ -35,8 +35,8 @@ class Pelanggan extends Model
     /**
      * @return \Illuminate\Database\Eloquent\Relations\HasMany
      */
-    public function meterans()
+    public function meteran()
     {
-        return $this->hasMany(\App\Models\Meteran::class, 'id', 'id_pelanggan');
+        return $this->hasOne(\App\Models\Meteran::class, 'id_pelanggan', 'id');
     }
 }

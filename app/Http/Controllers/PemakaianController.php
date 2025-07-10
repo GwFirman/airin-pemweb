@@ -58,7 +58,7 @@ class pemakaianController extends Controller implements HasMiddleware
         $pemakaian = new pemakaian();
         $meteran = Meteran::all();
 
-        return view('pemakaian.create', compact('pemakaian','meteran'));
+        return view('pemakaian.create', compact('pemakaian', 'meteran'));
     }
 
     public function store(Request $request): RedirectResponse

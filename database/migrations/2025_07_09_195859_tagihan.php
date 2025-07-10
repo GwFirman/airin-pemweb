@@ -18,8 +18,8 @@ return new class extends Migration
             $table->integer('tahun');
             $table->bigInteger('nomor_meteran')->index();
             $table->decimal('nominal', 10, 2)->nullable();
-            $table->date('waktu_awal');
-            $table->date('waktu_akhir');
+            $table->integer('awal');
+            $table->integer('akhir');
             $table->boolean('status');
 
             $table->foreign('id_pelanggan')->references('id')->on('pelanggan');

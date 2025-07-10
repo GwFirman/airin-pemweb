@@ -1,5 +1,5 @@
 <x-layout.app title="Detail Tagihan" activeMenu="tagihan.show" :withError="true">
-     <div class="container my-5">
+    <div class="container my-5">
         <x-breadcrumb title="Detail Tagihan" :breadcrumbs="[
             ['label' => 'Dashboard', 'url' => url('/')],
             ['label' => 'Tagihan', 'url' => route('tagihan.index')],
@@ -15,27 +15,21 @@
 
                     <div>
                         @can('tagihan view')
-                        <a href="{{ route('tagihan.create') }}"
-                            class="btn btn-sm btn-info">
-                            <i class="bx bx-plus me-1"></i>Baru
-                        </a>
+                            <a href="{{ route('tagihan.create') }}" class="btn btn-sm btn-info">
+                                <i class="bx bx-plus me-1"></i>Baru
+                            </a>
                         @endcan
                         @can('tagihan edit')
-                        <a href="{{ route('tagihan.edit', $tagihan) }}"
-                            class="btn btn-sm btn-primary">
-                            <i class="bx bx-pencil me-1"></i>Edit
-                        </a>
+                            <a href="{{ route('tagihan.edit', $tagihan) }}" class="btn btn-sm btn-primary">
+                                <i class="bx bx-pencil me-1"></i>Edit
+                            </a>
                         @endcan
                         @can('tagihan delete')
-                            <form action="{{ route('tagihan.destroy', $tagihan) }}"
-                                method="POST" class="d-inline">
+                            <form action="{{ route('tagihan.destroy', $tagihan) }}" method="POST" class="d-inline">
                                 @csrf @method('DELETE')
-                                <x-input.confirm-button text="Data tagihan ini akan dihapus!"
-                                    positive="Ya, hapus!" icon="info"
-                                    class="btn btn-danger btn-sm"
-                                    data-bs-toggle="tooltip"
-                                    data-bs-title="Hapus"
-                                    data-bs-placement="top">
+                                <x-input.confirm-button text="Data tagihan ini akan dihapus!" positive="Ya, hapus!"
+                                    icon="info" class="btn btn-danger btn-sm" data-bs-toggle="tooltip"
+                                    data-bs-title="Hapus" data-bs-placement="top">
                                     <i class="bx bx-trash me-1"></i>Hapus
                                 </x-input.confirm-button>
                             </form>
@@ -45,39 +39,31 @@
             </div>
             <div class="card-body">
                 <form class="row g-3">
-                    
-                                <div class="col-md-4">
-                                    <label for="first-name-horizontal">Id Pelanggan</label>
-                                </div>
-                                <div class="col-md-8 form-group">: {{ $tagihan->id_pelanggan }}</div>
-                                <div class="col-md-4">
-                                    <label for="first-name-horizontal">Id Meteran</label>
-                                </div>
-                                <div class="col-md-8 form-group">: {{ $tagihan->id_meteran }}</div>
-                                <div class="col-md-4">
-                                    <label for="first-name-horizontal">Tahun</label>
-                                </div>
-                                <div class="col-md-8 form-group">: {{ $tagihan->tahun }}</div>
-                                <div class="col-md-4">
-                                    <label for="first-name-horizontal">Nomor Meteran</label>
-                                </div>
-                                <div class="col-md-8 form-group">: {{ $tagihan->nomor_meteran }}</div>
-                                <div class="col-md-4">
-                                    <label for="first-name-horizontal">Nominal</label>
-                                </div>
-                                <div class="col-md-8 form-group">: {{ $tagihan->nominal }}</div>
-                                <div class="col-md-4">
-                                    <label for="first-name-horizontal">Waktu Awal</label>
-                                </div>
-                                <div class="col-md-8 form-group">: {{ $tagihan->waktu_awal }}</div>
-                                <div class="col-md-4">
-                                    <label for="first-name-horizontal">Waktu Akhir</label>
-                                </div>
-                                <div class="col-md-8 form-group">: {{ $tagihan->waktu_akhir }}</div>
-                                <div class="col-md-4">
-                                    <label for="first-name-horizontal">Status</label>
-                                </div>
-                                <div class="col-md-8 form-group">: {{ $tagihan->status }}</div>
+
+                    {{-- <div class="col-md-4">
+                        <label for="first-name-horizontal">Id Pelanggan</label>
+                    </div>
+                    <div class="col-md-8 form-group">: {{ $tagihan->id_pelanggan }}</div>
+                    <div class="col-md-4">
+                        <label for="first-name-horizontal">Id Meteran</label>
+                    </div>
+                    <div class="col-md-8 form-group">: {{ $tagihan->id_meteran }}</div> --}}
+                    <div class="col-md-4">
+                        <label for="first-name-horizontal">Tahun</label>
+                    </div>
+                    <div class="col-md-8 form-group">: {{ $tagihan->tahun }}</div>
+                    <div class="col-md-4">
+                        <label for="first-name-horizontal">Nomor Meteran</label>
+                    </div>
+                    <div class="col-md-8 form-group">: {{ $tagihan->nomor_meteran }}</div>
+                    <div class="col-md-4">
+                        <label for="first-name-horizontal">Nominal</label>
+                    </div>
+                    <div class="col-md-8 form-group">: {{ $tagihan->nominal }}</div>
+                    {{-- <div class="col-md-4">
+                        <label for="first-name-horizontal">Status</label>
+                    </div>
+                    <div class="col-md-8 form-group">: {{ $tagihan->status }}</div> --}}
                 </form>
             </div>
         </div>

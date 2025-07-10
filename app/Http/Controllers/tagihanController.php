@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Meteran;
+use App\Models\Pelanggan;
 use App\Models\tagihan;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
@@ -15,10 +17,10 @@ class tagihanController extends Controller implements HasMiddleware
     public static function middleware(): array
     {
         return [
-            // new Middleware('permission:tagihan view', only: ['index', 'show']),
-            // new Middleware('permission:tagihan create', only: ['create', 'store']),
-            // new Middleware('permission:tagihan edit', only: ['edit', 'update']),
-            // new Middleware('permission:tagihan delete', only: ['destroy']),
+            new Middleware('permission:tagihan view', only: ['index', 'show']),
+            new Middleware('permission:tagihan create', only: ['create', 'store']),
+            new Middleware('permission:tagihan edit', only: ['edit', 'update']),
+            new Middleware('permission:tagihan delete', only: ['destroy']),
         ];
     }
 
@@ -55,8 +57,11 @@ class tagihanController extends Controller implements HasMiddleware
     public function create(): View
     {
         $tagihan = new tagihan();
+        $pelanggan = Pelanggan::with('meteran')->get();
+        $meteran = Meteran::all();
 
-        return view('tagihan.create', compact('tagihan'));
+
+        return view('tagihan.create', compact('tagihan', 'pelanggan', 'meteran'));
     }
 
     public function store(Request $request): RedirectResponse
@@ -67,17 +72,17 @@ class tagihanController extends Controller implements HasMiddleware
             'tahun' => 'required|integer',
             'nomor_meteran' => 'required|integer',
             'nominal' => 'nullable|numeric',
-            'waktu_awal' => 'required|date',
-            'waktu_akhir' => 'required|date',
-            'status' => 'required|boolean',
         ]);
+        $validatedData['status'] = 1;
+        $validatedData['awal'] = 1;
+        $validatedData['akhir'] = 1;
 
         try {
             tagihan::create($validatedData);
         } catch (\Illuminate\Database\QueryException $e) {
             return redirect()->back()
                 ->withInput($request->all())
-                ->with('error', 'Terjadi kesalahan saat membuat data.');
+                ->with('error', $e->getMessage());
         }
 
         return redirect()->route('tagihan.index')
@@ -91,7 +96,10 @@ class tagihanController extends Controller implements HasMiddleware
 
     public function edit(tagihan $tagihan): View
     {
-        return view('tagihan.edit', compact('tagihan'));
+        $pelanggan = Pelanggan::with('meteran')->get();
+        $meteran = Meteran::all();
+
+        return view('tagihan.edit', compact('tagihan', 'pelanggan', 'meteran',));
     }
 
     public function update(Request $request, tagihan $tagihan): RedirectResponse
@@ -102,10 +110,10 @@ class tagihanController extends Controller implements HasMiddleware
             'tahun' => 'required|integer',
             'nomor_meteran' => 'required|integer',
             'nominal' => 'nullable|numeric',
-            'waktu_awal' => 'required|date',
-            'waktu_akhir' => 'required|date',
-            'status' => 'required|boolean',
         ]);
+        $validatedData['status'] = 1;
+        $validatedData['awal'] = 0;
+        $validatedData['akhir'] = 0;
 
         try {
             $tagihan->update($validatedData);
