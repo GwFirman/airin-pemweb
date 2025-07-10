@@ -101,20 +101,19 @@ class pemakaianController extends Controller implements HasMiddleware
 
     public function edit(pemakaian $pemakaian): View
     {
-        return view('pemakaian.edit', compact('pemakaian'));
+        $meteran = Meteran::all();
+
+        return view('pemakaian.edit', compact('pemakaian', 'meteran'));
     }
 
     public function update(Request $request, pemakaian $pemakaian): RedirectResponse
     {
         $validatedData = $request->validate([
             'id_meteran' => 'required|integer',
-            'id_layanan' => 'required|integer',
             'deskripsi' => 'required|string|max:255',
             'tahun' => 'required|string|max:4',
             'awal' => 'required|integer',
             'akhir' => 'required|integer',
-            'pakai' => 'required|integer',
-            'status_pembayaran' => 'required|boolean',
         ]);
 
         try {
