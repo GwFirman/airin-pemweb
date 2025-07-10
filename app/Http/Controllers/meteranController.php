@@ -93,7 +93,7 @@ class meteranController extends Controller implements HasMiddleware
 
     public function edit(meteran $meteran): View
     {
-        $meteran = new meteran();
+        // $meteran = new meteran();
         $pelanggan = Pelanggan::all();
         $layanan = Layanan::all();
 
