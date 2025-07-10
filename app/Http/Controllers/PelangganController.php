@@ -98,6 +98,7 @@ class pelangganController extends Controller implements HasMiddleware
             'alamat' => 'required|string|max:255',
             'status' => 'required|boolean',
         ]);
+        $validatedData['status'] = 1;
 
         try {
             $pelanggan->update($validatedData);
